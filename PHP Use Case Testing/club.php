@@ -22,6 +22,20 @@ class Club
                 return "Cannot add, user with same ID already exists.";
             }
         }
+        if($addID < 0)
+            return "ID cannot be negative.";
+        if(!is_int($addID))
+            return "ID must be of integer type.";
+        if(count($roles) > 5)
+            return "Roles must be limited to a maximum of 5.";
+        foreach($roles as $role)
+        {
+            if(strlen($role) > 15)
+            {
+                return "Each role must be a maximum of 15 characters.";
+                break;
+            }
+        }
         $user = User :: getUserID($addID); 
         $this -> memberRolesMap[$user] = $roles; 
         $user -> addClub($this); 
@@ -56,11 +70,22 @@ class Club
             {
                 return "Cannot add, event with same name already exists.";
             }
+
         }
+        if(strlen($title) == 0)
+        {
+            return "Title cannot be empty.";
+        }
+        if(strlen($title) > 0)
+            return "Title cannot exceed 50 characters length.";
         if (!strtotime($time)) 
         {
             throw new Exception("Invalid date time format.");
         }
+        if(strlen($description) == 0)
+            return "Cannot have an empty description.";
+        if(strlen($description) > 250)
+            return "Description cannot be longer than 250 characters.";
         $this->eventList[] = new Event($title, $time, $description);
     }
 

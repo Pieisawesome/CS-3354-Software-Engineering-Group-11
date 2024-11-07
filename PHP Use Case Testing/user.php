@@ -7,7 +7,7 @@ include_once 'club.php';
         private $ID;
         private $clubsList = [];
 
-        private static $IDCount = 1;
+        private static $IDCount = 0;
         private static $userMap = [];
 
         public function __construct($name)
