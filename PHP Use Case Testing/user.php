@@ -25,7 +25,8 @@ include_once 'club.php';
 
         public function removeClub($club)
         {
-            $this -> clubsList = array_values(array_filter($this -> clubsList, function ($c) use ($club) {
+            $this -> clubsList = array_values(array_filter($this -> clubsList, function ($c) use ($club) 
+            {
                 return $c !== $club;
             }));
         }
@@ -35,11 +36,13 @@ include_once 'club.php';
             return $this -> clubsList;
         }
    
-        public function getName() {
+        public function getName() 
+        {
             return $this -> name;
         }
    
-        public function getID() {
+        public function getID() 
+        {
             return $this -> ID;
         }
 
