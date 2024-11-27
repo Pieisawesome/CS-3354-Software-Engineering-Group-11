@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST['location'];
     $info = $_POST['info'];
 
-    // Display form data
+    // Display form data can be removed later
     echo "Name: " . $name . "<br>";
     echo "Date: " . $date . "<br>";
     echo "Time: " . $time . "<br>";
