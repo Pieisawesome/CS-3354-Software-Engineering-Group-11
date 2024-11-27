@@ -4,6 +4,7 @@ require 'db_config.php';
 
 // Check if form data was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Retrieve form data
     $name = $_POST['name'];
     $date = $_POST['date'];
@@ -11,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST['location'];
     $info = $_POST['info'];
 
+    // Display form data
     echo "Name: " . $name . "<br>";
     echo "Date: " . $date . "<br>";
     echo "Time: " . $time . "<br>";
@@ -18,8 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Info: " . $info . "<br>";
 
     // Prepare and bind SQL statement
+    // TODO VALID THE DATA LANA
     $stmt = $conn->prepare("INSERT INTO event (name, date, time, location, info) VALUES (?,?,?,?,?)");
-    $stmt->bind_param("sssss", $name, $date, $time, $location, $info); // "ss" indicates two strings
+    $stmt->bind_param("sssss", $name, $date, $time, $location, $info); 
 
     // Execute the statement
     if ($stmt->execute()) {
