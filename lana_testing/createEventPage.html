@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event Form</title>
+</head>
+<body>
+    <h1>Create Event</h1>
+    <form action="createEventScript.php" method="POST">
+        <label for="name">Event Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="date">Select a date:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="time">Select a time:</label>
+        <input type="time" id="time" name="time" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="info">Info/Details:</label>
+        <input type="text" id="info" name="info"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
