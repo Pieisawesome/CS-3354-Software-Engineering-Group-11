@@ -4,26 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Event Form</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Create Event</h1>
-    <form action="createEventScript.php" method="POST">
-        <label for="name">Event Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
 
-        <label for="date">Select a date:</label>
-        <input type="date" id="date" name="date" required><br><br>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">YOUR LOGO</div>
+        <nav>
+            <a href="events.html">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </nav>
+    </header>
 
-        <label for="time">Select a time:</label>
-        <input type="time" id="time" name="time" required><br><br>
+    <!-- Main Section -->
+    <main>
+        <h1>Create Event</h1>
 
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required><br><br>
+        <form action="createEventScript.php" method="POST">
+            <label for="name">Event Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+    
+            <label for="date">Select a date:</label>
+            <input type="date" id="date" name="date" required><br><br>
+    
+            <label for="time">Select a time:</label>
+            <input type="time" id="time" name="time" required><br><br>
+    
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required><br><br>
+    
+            <label for="info">Info/Details:</label>
+            <input type="text" id="info" name="info"><br><br>
+    
+            <button type="submit">Submit</button>
+        </form>
+    </main>
 
-        <label for="info">Info/Details:</label>
-        <input type="text" id="info" name="info"><br><br>
+    <!-- Footer Section -->
+    <footer>
+        Footer
+    </footer>
 
-        <button type="submit">Submit</button>
-    </form>
 </body>
 </html>
+
+<!-- http://localhost:8080/CS3354Project/event/createEventPage.html -->
+    <!-- http://localhost:PORTNUMBER/FOLDERNAME(S)/createEventPage.html-->
+    <!-- This is just the pathway needed to put to access it in your browser if using Xampp -->
