@@ -3,19 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Event Form</title>
+    <title>Edit Event Forum</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- 
-    This file is for html page of create event form.
-
-    Note to anyone who reads this: 
-    The main section is a bit messy. It has forum to user input, popup message script, and overlay script.
-    If you are looking to style the form, for the overall page it is in styles.css.
-    For the popup, in the "Popup Message" section, there is some inline styling that can be changed.
-    -->
 
     <!-- Header Section -->
     <header>
@@ -31,28 +22,29 @@
     <main>
 
         <!-- This is layout for user input-->
-        <h1>Create Event</h1>
-        <form id="createEventForum" method="POST">
+        <h1>Edit Event</h1>
+        <form id="editEventForum" action="editEventUpdateEventsScript.php" method="POST">
+            <input type="hidden" id="eventId" name="eventId">
+
             <label for="name">Event Name:</label>
             <input type="text" id="name" name="name" required><br><br>
-        
+
             <label for="date">Select a date:</label>
             <input type="date" id="date" name="date" required><br><br>
-        
+
             <label for="time">Select a time:</label>
             <input type="time" id="time" name="time" required><br><br>
-        
+
             <label for="location">Location:</label>
             <input type="text" id="location" name="location" required><br><br>
-        
+
             <label for="info">Info/Details:</label>
             <input type="text" id="info" name="info"><br><br>
-        
-            <button type="submit">Submit</button>
+
+            <button type="submit">Update Event</button>
         </form>
 
         <!-- Popup Message-->
-        <!-- I found some funny code for a popup, I dont understand most of the style part -->
         <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
             <span id="popupMessage"></span>
             <br><br>
@@ -60,23 +52,60 @@
         </div>
         
         <!-- Overlay -->
-        <!-- This is also part of the popup but it overs whole page so if you click off of the popup it dismisses it -->
         <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
         
 
-        <!-- Script for Popup -->
-        <!-- You dont have to worry about this part, its mostly just putting what createEventScript.php is into the popup-->
+        <!-- Javascript -->
+            <!-- Main Functions in Script -->
+            <!-- 1. Loads details from event (Similar to createEvent) -->
+            <!-- 2. Load details into page upon load -->
+            <!-- 3. Popup Confirmation (Similar to createEvent)-->
         <script>
+            // 1. Function prefill the form
+            function loadEventDetails() {
+                // Get event ID from the query parameter in the URL (When edit button is clicked, it sends the event ID in the URL)
+                // This is to maintain not embedding the php code in the html to help with separation
+                const params = new URLSearchParams(window.location.search);
+                const eventId = params.get('eventId');
+
+                // If event ID provided, get data
+                if (eventId) {
+                    // Get event data
+                    // I wrote some notes about .json in editEventScript.php if you want to understand more on whats going on
+                    fetch(`editEventScript.php?eventId=${eventId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('eventId').value = data.event.id;
+                                document.getElementById('name').value = data.event.name;
+                                document.getElementById('date').value = data.event.date;
+                                document.getElementById('time').value = data.event.time;
+                                document.getElementById('location').value = data.event.location;
+                                document.getElementById('info').value = data.event.info;
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                } else {
+                    alert("No event ID provided.");
+                }
+            }
+
+            // 2. Load details when the page loads
+            window.onload = loadEventDetails;
+
+            // 3. Popup Confirmation
             // Form submission
-            document.getElementById("createEventForum").addEventListener("submit", function (event) {
+            document.getElementById("editEventForum").addEventListener("submit", function (event) {
                 event.preventDefault(); // No default form action
         
                 const formData = new FormData(this); // Form data
         
-                // AJAX (Asynchronous JavaScript and XML) request, just figured out how to use it
-                // Uses fetch which waits for createEventScript.php
-                // Then displays the response of createEventScript.php in the popup
-                fetch("createEventScript.php", {
+                // AJAX (Asynchronous JavaScript and XML) request
+                // Uses fetch which waits for script
+                // Then displays the response of script in the popup
+                fetch("editEventUpdateEventsScript.php", {
                     method: "POST",
                     body: formData,
                 })
@@ -100,6 +129,7 @@
                 document.getElementById("popup").style.display = "none";
                 document.getElementById("overlay").style.display = "none";
             }
+                
         </script>
 
     </main>

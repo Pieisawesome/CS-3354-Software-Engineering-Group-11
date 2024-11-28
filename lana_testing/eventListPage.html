@@ -43,21 +43,29 @@
     </footer>
 
     <!-- JavaScript -->
+        <!-- Five different 'functions' -->
+        <!-- 1. Load all events from the database -->
+        <!-- 2. Listener for search-->
+        <!-- 3. Events load with page load -->
+        <!-- 4. Delete a specific event -->
+        <!-- 5. Edit a specific event -->
     <script>
-        // Function to load all events or search results
+
+        // 1. Load all results from the database
         function loadEvents(searchQuery = '') {
             // Create a FormData object to send data
             const formData = new FormData();
             formData.append('search', searchQuery);
 
-            // Send an AJAX request
+            // AJAX request
+            // If searchQuery is empty, load all events, if not run the search query script
             fetch(searchQuery ? 'eventListSearchScript.php' : 'eventListScript.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
-                // Update the event list container with the response
+                // Update event list with response
                 document.getElementById('eventList').innerHTML = data;
             })
             .catch(error => {
@@ -66,15 +74,46 @@
             });
         }
 
-        // Handle form submission for searching
+        // 2. Handle form submission for searching
         document.getElementById('searchForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
             const searchQuery = document.getElementById('search').value;
-            loadEvents(searchQuery); // Load events based on the search query
+            loadEvents(searchQuery); // Load events based on search query
         });
 
-        // Load all events by default when the page loads
+        // 3. Load all events by default when the page loads
         document.addEventListener('DOMContentLoaded', () => loadEvents());
+    
+
+        // 4. Delete an event
+        function deleteEvent(eventId) {
+            // Confirmation
+            if (!confirm('Are you sure you want to delete this event?')) {
+                return;
+            }
+
+            // AJAX request
+            fetch('eventListDeleteScript.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Reload the event list after deleting the event
+                loadEvents();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the event.');
+            });
+        }
+
+        // 5. Edit an event
+        function editEvent(eventId) {
+            // Redirect to the edit event page, needs to be here cause its tied with the id
+            window.location.href = `editEventPage.html?eventId=${eventId}`;
+        }
+    
     </script>
 </body>
 </html>
