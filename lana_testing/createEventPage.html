@@ -71,7 +71,7 @@
             document.getElementById("createEventForum").addEventListener("submit", function (event) {
                 event.preventDefault(); // No default form action
         
-                const formData = new FormData(this); // Form data
+                const formData = new FormData(this); // Form data, packages all input data in a format to be sent to AJAX
         
                 // AJAX (Asynchronous JavaScript and XML) request, just figured out how to use it
                 // Uses fetch which waits for createEventScript.php
@@ -79,8 +79,8 @@
                 fetch("createEventScript.php", {
                     method: "POST",
                     body: formData,
-                })
-                    .then((response) => response.text()) // Expecting a plain text response
+                    })
+                    .then((response) => response.text()) // Converts response to text
                     .then((data) => {
                         // Response
                         document.getElementById("popupMessage").innerHTML = data;
@@ -92,7 +92,7 @@
                         document.getElementById("popupMessage").innerHTML = "Error: " + error.message;
                         document.getElementById("popup").style.display = "block";
                         document.getElementById("overlay").style.display = "block";
-                    });
+                });
             });
         
             // Close popup

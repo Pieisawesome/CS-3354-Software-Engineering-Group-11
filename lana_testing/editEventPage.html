@@ -73,7 +73,7 @@
                     // Get event data
                     // I wrote some notes about .json in editEventScript.php if you want to understand more on whats going on
                     fetch(`editEventScript.php?eventId=${eventId}`)
-                        .then(response => response.json())
+                        .then(response => response.json()) // In my createEventPage I have a response.text() because I was sending a string, but I need to send a JSON object as it has multiple values
                         .then(data => {
                             if (data.success) {
                                 document.getElementById('eventId').value = data.event.id;
