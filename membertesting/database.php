@@ -1,8 +1,8 @@
 <?php
     $host_name = "localhost";
     $dbUser = "root";
-    $dbPassword = "";
-    $dbName = "hubclub-db";
+    $dbPassword = '';
+    $dbName = "cs3354database";
     $conn = mysqli_connect($host_name, $dbUser, $dbPassword, $dbName);
     if(!$conn)
     {

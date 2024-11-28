@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Wireframe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Your Logo</div>
+        <div class="title">Website Wireframe</div>
+        <nav>
+            <a href="#" onclick="showMemberInfo()">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+            <a href="#" class="menu-icon">☰</a>
+        </nav>
+    </header>
+    
+    <main>
+    <!-- Create Member Start -->
+    <section id="create-member-start" class="content">
+        <h1>Create Member</h1>
+        <button onclick="showForm()">Start</button>
+    </section>
+
+    
+    <!-- Create Member Form -->
+    <section id="create-member-form" class="content" style="display: none;">
+        <h1>Create Member</h1>
+        <form onsubmit="saveMember(event)">
+            <label for="club">Club:</label>
+            <input type="text" id="club" name="club">
+
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first-name">
+
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last-name">
+
+            <label for="grade">Grade (By Credit):</label>
+            <input type="text" id="grade" name="grade">
+
+            <label for="netid">NetID:</label>
+            <input type="text" id="netid" name="netid">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+
+            <label for="role">Role:</label>
+            <input type="text" id="role" name="role">
+
+            <button type="submit">Save</button>
+            <button type="button" onclick="goBack()">Go Back</button>
+        </form>
+    </section>
+
+    <!-- Member Information -->
+    <section id="member-info" class="content" style="display: none;">
+        <h1>Member Information</h1>
+        <p>Hi <span id="member-name">[Insert Name Here]</span></p>
+        <p>Club: <span id="member-club"></span></p>
+        <p>Hometown: <span id="member-hometown">[Optional Field]</span></p>
+        <p>Role: <span id="member-role"></span></p>
+        <p>Meetings Attended: <span id="member-meetings">[Optional Field]</span></p>
+        <p>Grade: <span id="member-grade"></span></p>
+        <p>NetID: <span id="member-netid"></span></p>
+        <p>Email: <span id="member-email"></span></p>
+        <button onclick="done()">Done</button>
+    </section>
+
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>Footer</p>
+    </footer>
+
+    <script>
+        let firstMember = null;
+
+        function showForm() {
+            document.getElementById('create-member-start').style.display = 'none';
+            document.getElementById('create-member-form').style.display = 'block';
+        }
+
+        function goBack() {
+            document.getElementById('create-member-form').style.display = 'none';
+            document.getElementById('create-member-start').style.display = 'block';
+        }
+
+        function saveMember(event) {
+            event.preventDefault();
+
+            firstMember = {
+                club: document.getElementById('club').value,
+                firstName: document.getElementById('first-name').value,
+                lastName: document.getElementById('last-name').value,
+                grade: document.getElementById('grade').value,
+                netid: document.getElementById('netid').value,
+                email: document.getElementById('email').value,
+                role: document.getElementById('role').value
+            };
+
+            document.getElementById('create-member-form').style.display = 'none';
+            alert("Member saved successfully!");
+        }
+
+        function showMemberInfo() {
+            if (firstMember) {
+                document.getElementById('member-name').textContent = `${firstMember.firstName} ${firstMember.lastName}`;
+                document.getElementById('member-club').textContent = firstMember.club;
+                document.getElementById('member-role').textContent = firstMember.role;
+                document.getElementById('member-grade').textContent = firstMember.grade;
+                document.getElementById('member-netid').textContent = firstMember.netid;
+                document.getElementById('member-email').textContent = firstMember.email;
+
+                document.getElementById('create-member-start').style.display = 'none';
+                document.getElementById('create-member-form').style.display = 'none';
+                document.getElementById('member-info').style.display = 'block';
+            } else {
+                alert("No member information available. Please create a member first.");
+            }
+        }
+
+        function done() {
+            document.getElementById('member-info').style.display = 'none';
+            document.getElementById('create-member-start').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
