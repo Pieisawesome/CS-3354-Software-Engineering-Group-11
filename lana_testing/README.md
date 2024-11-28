@@ -1,6 +1,8 @@
-HTML page which interacts with php script.
+# Intro
+Currently working on implementing editing event and deleting event. Currently on event list page, the buttons do nothing.
 
-To run, I have this folder in Xampp and created a table in phpmyadmin called event.
-Event table holds id, name, date, time, location, and info. Id is self incrementing with each event created.
+Files that go together: (I mean naming scheme should make sense but here it is anyways)
+- createEventPage.html, createEventScript.php
+- eventListPage.html, eventListScript.php, eventListSearchScript.php
+- db_config.php is included in all .php files
 
-All it currently does is store info into local database.

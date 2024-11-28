@@ -2,16 +2,17 @@
 // Include database configuration
 require 'db_config.php';
 
-// Check if form data was submitted
+// Check if forum data was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
+    // Retrieve forum data
     $name = $_POST['name'];
     $date = $_POST['date'];
     $time = $_POST['time'];
     $location = $_POST['location'];
     $info = $_POST['info'];
 
-    // Output the form data
+    // Output forum data
+    // Html tags need to be in in double quotes
     echo "Name: " . $name . "<br>";
     echo "Date: " . $date . "<br>";
     echo "Time: " . $time . "<br>";
@@ -22,14 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO event (name, date, time, location, info) VALUES (?,?,?,?,?)");
     $stmt->bind_param("sssss", $name, $date, $time, $location, $info); 
 
-    // Execute the statement
+    // Execute statement
     if ($stmt->execute()) {
         echo "Record successfully saved.";
     } else {
         echo "Error: " . $stmt->error;
     }
 
-    // Close the statement and connection
+    // Close statement and connection
     $stmt->close();
     $conn->close();
 }

@@ -1,4 +1,6 @@
 <?php
+// This file is for database configuration
+
 $host = "localhost";
 $username = "root";
 $password = "";
