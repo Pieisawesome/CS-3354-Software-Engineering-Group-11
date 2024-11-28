@@ -8,6 +8,13 @@
 </head>
 <body>
 
+    <!-- 
+    Note to anyone who reads this: 
+    The main section is a bit messy. It has forum to user input, popup message script, and overlay script.
+    If you are looking to style the form, for the overall page it is in styles.css.
+    For the popup, in the "Popup Message" section, there is some inline styling that can be changed.
+    -->
+
     <!-- Header Section -->
     <header>
         <div class="logo">YOUR LOGO</div>
@@ -20,26 +27,79 @@
 
     <!-- Main Section -->
     <main>
-        <h1>Create Event</h1>
 
-        <form action="createEventScript.php" method="POST">
+        <!-- This is layout for user input-->
+        <h1>Create Event</h1>
+        <form id="createEventForm" method="POST">
             <label for="name">Event Name:</label>
             <input type="text" id="name" name="name" required><br><br>
-    
+        
             <label for="date">Select a date:</label>
             <input type="date" id="date" name="date" required><br><br>
-    
+        
             <label for="time">Select a time:</label>
             <input type="time" id="time" name="time" required><br><br>
-    
+        
             <label for="location">Location:</label>
             <input type="text" id="location" name="location" required><br><br>
-    
+        
             <label for="info">Info/Details:</label>
             <input type="text" id="info" name="info"><br><br>
-    
+        
             <button type="submit">Submit</button>
         </form>
+
+        <!-- Popup Message-->
+        <!-- I found some funny code for a popup, I dont understand most of the style part -->
+        <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
+            <span id="popupMessage"></span>
+            <br><br>
+            <button onclick="closePopup()">Close</button>
+        </div>
+        
+        <!-- Overlay -->
+        <!-- This is also part of the popup but it overs whole page so if you click off of the popup it dismisses it -->
+        <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+        
+
+        <!-- Script for Popup -->
+        <!-- You dont have to worry about this part, its mostly just putting what createEventScript.php is into the popup-->
+        <script>
+            // Form submission
+            document.getElementById("createEventForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // No default form action
+        
+                const formData = new FormData(this); // Form data
+        
+                // AJAX (Asynchronous JavaScript and XML) request, just figured out how to use it
+                // Uses fetch which waits for createEventScript.php
+                // Then displays the response of createEventScript.php in the popup
+                fetch("createEventScript.php", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.text()) // Expecting a plain text response
+                    .then((data) => {
+                        // Response
+                        document.getElementById("popupMessage").innerHTML = data;
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("overlay").style.display = "block";
+                    })
+                    // In case of errors
+                    .catch((error) => {
+                        document.getElementById("popupMessage").innerHTML = "Error: " + error.message;
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("overlay").style.display = "block";
+                    });
+            });
+        
+            // Close popup
+            function closePopup() {
+                document.getElementById("popup").style.display = "none";
+                document.getElementById("overlay").style.display = "none";
+            }
+        </script>
+
     </main>
 
     <!-- Footer Section -->
@@ -49,7 +109,3 @@
 
 </body>
 </html>
-
-<!-- http://localhost:8080/CS3354Project/event/createEventPage.html -->
-    <!-- http://localhost:PORTNUMBER/FOLDERNAME(S)/createEventPage.html-->
-    <!-- This is just the pathway needed to put to access it in your browser if using Xampp -->
