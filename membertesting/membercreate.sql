@@ -10,12 +10,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 CREATE TABLE `member` (
   `mid` int(11) NOT NULL auto_increment,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `grade` varchar(50) NOT NULL,
-  `netid` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-   `roles` JSON,
+  `name` varchar(50) NOT NULL,
    PRIMARY KEY (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
