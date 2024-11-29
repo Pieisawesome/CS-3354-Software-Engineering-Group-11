@@ -1,13 +1,12 @@
 # Intro
 These files are supposed to emulate the administrator side of viewing/creating/editing/deleting events. You can search for a specific event as well as create one.
 
-Currently working on implementing editing event and deleting event. Currently on event list page, the edit/delete buttons do nothing.
+Currently working on implementing adding member and member list.
 
 Files that go together: (I mean naming scheme should make sense but here it is anyways)
 - createEventPage.html, createEventScript.php
 - eventListPage.html, eventListScript.php, eventListSearchScript.php
-- editEventPage.html, editEventScript.php, editEventUpdateEvents.php
-- eventListDeleteScript.php (Working on)
+- editEventPage.html, editEventScript.php, editEventUpdateEvents.php, eventListDeleteScript.php
 - db_config.php is included in all .php files
 
 
