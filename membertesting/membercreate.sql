@@ -13,6 +13,12 @@ CREATE TABLE `member` (
   `name` varchar(50) NOT NULL,
    PRIMARY KEY (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `roles` (
+  `mid` int(11) NOT NULL,
+  `roles` varchar(50) NOT NULL,
+   PRIMARY KEY (`mid`),
+   foreign key (`mid`) REFERENCES `member`(`mid`) on delete cascade on update cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 
