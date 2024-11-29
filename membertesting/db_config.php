@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = 'Po$ter18PM';
+$password = '';
 $database = "cs3354database";
 
 // Create connection
