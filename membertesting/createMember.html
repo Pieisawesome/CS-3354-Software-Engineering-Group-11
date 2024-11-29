@@ -13,7 +13,7 @@
         <div class="logo">Your Logo</div>
         <div class="title">Website Wireframe</div>
         <nav>
-            <a href="#" onclick="showMemberInfo()">Link 1</a>
+            <a href="events.html">Link 1</a>
             <a href="#">Link 2</a>
             <a href="#">Link 3</a>
             <a href="#" class="menu-icon">☰</a>
@@ -21,85 +21,73 @@
     </header>
     
     <main>
-    <!-- Create Member Start -->
-    <section id="create-member-start" class="content">
-        <h1>Create Member</h1>
-        <button onclick="showForm()">Start</button>
-    </section>
 
     
     <!-- Create Member Form -->
-    <section id="create-member-form" class="content" style="display: none;">
+  
         <h1>Create Member</h1>
-        <form onsubmit="saveMember(event)">
+        
+        <form id="createMemberForm" method="POST">
            
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name"><br><br>
 
             <label for="role">Role(s):</label>
-            <input type="text" id="role" name="role">
+            <input type="text" id="role" name="role"><br><br>
 
             <button type="submit">Save</button>
-            <button type="button" onclick="goBack()">Go Back</button>
+          
         </form>
-    </section>
-
-    <!-- Member Information -->
-    <section id="member-info" class="content" style="display: none;">
-        <h1>Member Information</h1>
-        <p>Hi <span id="member-name">[Insert Name Here]</span></p>
-        <p>Role: <span id="member-role"></span></p>
-        <button onclick="done()">Done</button>
-    </section>
-
+        
+        <script>
+            let firstMember = null;
+    
+            function showForm() {
+                document.getElementById('create-member-start').style.display = 'none';
+                document.getElementById('create-member-form').style.display = 'block';
+            }
+    
+            function goBack() {
+                document.getElementById('create-member-form').style.display = 'none';
+                document.getElementById('create-member-start').style.display = 'block';
+            }
+    
+            function saveMember(event) {
+                event.preventDefault();
+    
+                firstMember = {
+                    name: document.getElementById('name').value,
+                    role: document.getElementById('role').value
+                };
+    
+                document.getElementById('create-member-form').style.display = 'none';
+                alert("Member saved successfully!");
+            }
+    
+            function showMemberInfo() {
+                if (firstMember) {
+                    document.getElementById('member-name').textContent = `${firstMember.name}`;
+                    document.getElementById('member-role').textContent = firstMember.role;
+                    document.getElementById('create-member-start').style.display = 'none';
+                    document.getElementById('create-member-form').style.display = 'none';
+                    document.getElementById('member-info').style.display = 'block';
+                } else {
+                    alert("No member information available. Please create a member first.");
+                }
+            }
+    
+            function done() {
+                document.getElementById('member-info').style.display = 'none';
+                document.getElementById('create-member-start').style.display = 'block';
+            }
+        </script>
     </main>
     <!-- Footer -->
     <footer>
         <p>Footer</p>
     </footer>
 
-    <script>
-        let firstMember = null;
-
-        function showForm() {
-            document.getElementById('create-member-start').style.display = 'none';
-            document.getElementById('create-member-form').style.display = 'block';
-        }
-
-        function goBack() {
-            document.getElementById('create-member-form').style.display = 'none';
-            document.getElementById('create-member-start').style.display = 'block';
-        }
-
-        function saveMember(event) {
-            event.preventDefault();
-
-            firstMember = {
-                name: document.getElementById('name').value,
-                role: document.getElementById('role').value
-            };
-
-            document.getElementById('create-member-form').style.display = 'none';
-            alert("Member saved successfully!");
-        }
-
-        function showMemberInfo() {
-            if (firstMember) {
-                document.getElementById('member-name').textContent = `${firstMember.name}`;
-                document.getElementById('member-role').textContent = firstMember.role;
-                document.getElementById('create-member-start').style.display = 'none';
-                document.getElementById('create-member-form').style.display = 'none';
-                document.getElementById('member-info').style.display = 'block';
-            } else {
-                alert("No member information available. Please create a member first.");
-            }
-        }
-
-        function done() {
-            document.getElementById('member-info').style.display = 'none';
-            document.getElementById('create-member-start').style.display = 'block';
-        }
-    </script>
+   
 
 </body>
 </html>
