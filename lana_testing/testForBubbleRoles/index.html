@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Tracker</title>
+    <style>
+        .skill-tag {
+            display: inline-block;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            padding: 5px 10px;
+            margin: 5px;
+        }
+        .delete-skill {
+            color: red;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Skills</h1>
+    <input type="text" id="skillInput" placeholder="Enter a skill">
+    <button onclick="addSkill()">Add Skill</button>
+    <div id="skillContainer"></div>
+    <button onclick="saveSkills()">Save All Skills</button>
+
+    <script src="skills.js"></script>
+</body>
+</html>
