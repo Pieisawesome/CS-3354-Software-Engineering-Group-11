@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Information</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff6e6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff8300;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Section */
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff8300;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ff8300;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e57000;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form input, form button {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            margin-left: 5px;
+        }
+
+        #eventList {
+            margin-top: 20px;
+        }
+
+        #eventList div {
+            background: #fff6e6;
+            border: 1px solid #ff8300;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #eventList div h3 {
+            color: #ff8300;
+            margin-bottom: 5px;
+        }
+
+        #eventList div p {
+            margin: 5px 0;
+        }
+
+        #eventList div button {
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #ff8300;
+            color: white;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Your Logo</div>
+        <nav>
+            <a href="eventListPage.html">Event List</a>
+            <a href="#">Member List</a>
+            <a href="#">Links</a>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <h1>Events List</h1>
+
+        <!-- Redirect to Create Event Page -->
+        <button onclick="window.location.href='createEventPage.html'">Create Event</button><br><br>
+        
+        <!-- Search Bar -->
+        <form id="searchForm">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Search for events...">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Event List Container -->
+        <div id="eventList">
+            <!-- Dynamically generated event items will appear here -->
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2024 HubClub. All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Load all results from the database
+        function loadEvents(searchQuery = '') {
+            const formData = new FormData();
+            formData.append('search', searchQuery);
+
+            fetch(searchQuery ? 'eventListSearchScript.php' : 'eventListScript.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('eventList').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('eventList').innerHTML = 'An error occurred while loading events.';
+            });
+        }
+
+        // 2. Handle form submission for searching
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById('search').value;
+            loadEvents(searchQuery);
+        });
+
+        // 3. Load all events by default when the page loads
+        document.addEventListener('DOMContentLoaded', () => loadEvents());
+
+        // 4. Delete an event
+        function deleteEvent(eventId) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                const formData = new FormData();
+                formData.append('eventId', eventId);
+
+                fetch('eventListDeleteScript.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    loadEvents();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the event.');
+                });
+            }
+        }
+
+        // 5. Edit an event
+        function editEvent(eventId) {
+            window.location.href = `editEventPage.html?eventId=${eventId}`;
+        }
+    </script>
+</body>
+</html>
