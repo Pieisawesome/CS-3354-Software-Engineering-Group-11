@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Information</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Event List</title>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <!-- This file is for html page of event list -->
@@ -14,7 +14,7 @@
         <div class="logo">YOUR LOGO</div>
         <nav>
             <a href="eventListPage.html">Event List</a>
-            <a href="#">Member List</a>
+            <a href="../member/memberListPage.html">Member List</a>
             <a href="#">Links</a>
         </nav>
     </header>
@@ -37,10 +37,24 @@
         <div id="eventList"></div>
     </main>
 
+    <!-- Popup Message -->
+    <!-- If you want to change the popup, change it here? The style=tag atleast-->
+    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
+        <span id="popupMessage"></span>
+        <br><br>
+        <button id="popupYesButton" style="display: none;">Yes</button>
+        <button id="popupCloseButton" onclick="closePopup()">Close</button>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closePopup()"></div>    
+
     <!-- Footer Section -->
     <footer>
         Footer
     </footer>
+
+    <!-- End of HTML/CSS styling code -->
 
     <!-- JavaScript -->
         <!-- Five different 'functions' -->
@@ -49,6 +63,7 @@
         <!-- 3. Events load with page load -->
         <!-- 4. Delete a specific event -->
         <!-- 5. Edit a specific event -->
+        <!-- 6. Popup Message -->
     <script>
 
         // 1. Load all results from the database
@@ -86,37 +101,60 @@
     
 
         // 4. Delete an event
-    function deleteEvent(eventId) {
-        // First confirmation dialog
-        if (confirm('Are you sure you want to delete this event?')) {
-            // Create a FormData object to send the event ID
-            
-            const formData = new FormData();
-            formData.append('eventId', eventId);
+        function deleteEvent(eventId) {
+            // Show confirmation popup
+            showPopup('Are you sure you want to delete this event?', () => {
+                // If confirmed, send the delete request
+                const formData = new FormData();
+                formData.append('eventId', eventId);
 
-            // AJAX request to delete the event
-            fetch('eventListDeleteScript.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Success confirmation dialog
-                alert(data); // Server response will be shown as an alert
-                // Reload the event list after deletion
-                loadEvents();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while deleting the event.');
+                fetch('eventListDeleteScript.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Show success message in popup
+                        showPopup(data, null); // No callback for success message
+                        // Reload events list
+                        loadEvents();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showPopup('An error occurred while deleting the event.', null);
+                    });
             });
         }
-    }
 
         // 5. Edit an event
         function editEvent(eventId) {
             // Redirect to the edit event page, needs to be here cause its tied with the id
             window.location.href = `editEventPage.html?eventId=${eventId}`;
+        }
+
+        // 6. Popup Message
+        // Function to show the popup
+        function showPopup(message, yesCallback) {
+            document.getElementById('popupMessage').textContent = message;
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+
+            const yesButton = document.getElementById('popupYesButton');
+            yesButton.style.display = yesCallback ? 'inline-block' : 'none'; // For yes button
+
+            // Add click listener for "Yes" button
+            if (yesCallback) {
+                yesButton.onclick = () => {
+                    closePopup(); // Close popup before executing callback
+                    yesCallback();
+                };
+            }
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
         }
     
     </script>

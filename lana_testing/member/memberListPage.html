@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">YOUR LOGO</div>
+        <nav>
+            <a href="../event/eventListPage.html">Events List</a>
+            <a href="memberListPage.html">Member List</a>
+            <a href="#">Link 3</a>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <h1>Search Member</h1>
+
+        <!-- Redirect to Create Event Page -->
+        <button onclick="window.location.href='createMemberPage.html'">Create Member</button><br><br>
+        
+        <!-- Search Bar -->
+        <form id="searchForm">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Search for events...">
+            <button type="submit">Search</button><br><br>
+        </form>
+
+        <!-- Member List Container-->
+        <div id="memberList"></div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        Footer
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+
+        // 1. Load all results from the database
+        function loadMembers(searchQuery = '') {
+            // Create a FormData object to send data
+            const formData = new FormData();
+            formData.append('search', searchQuery);
+
+            // AJAX request
+            // If searchQuery is empty, load all events, if not run the search query script
+            fetch(searchQuery ? 'memberListSearchScript.php' : 'memberListScript.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Update event list with response
+                document.getElementById('memberList').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('memberList').innerHTML = 'An error occurred while loading events.';
+            });
+        }
+
+        // 2. Handle form submission for searching
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            const searchQuery = document.getElementById('search').value;
+            loadMembers(searchQuery); // Load events based on search query
+        });
+
+        // 3. Load all events by default when the page loads
+        document.addEventListener('DOMContentLoaded', () => loadMembers());
+    </script>
+</body>
+</html>

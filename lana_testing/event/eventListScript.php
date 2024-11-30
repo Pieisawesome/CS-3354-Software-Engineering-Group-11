@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
         echo "Location: " . htmlspecialchars($row["location"]) . "<br>";
         echo "Info/Details: " . htmlspecialchars($row["info"]) . "<br><br>";
         // Edit Button
-        echo "<button onclick=\"editEvent(" . ")\">Edit</button> ";
+        echo "<button onclick=\"editEvent(" . $row["id"] . ")\">Edit</button> ";
         // Delete Button
         echo "<button onclick=\"deleteEvent(" . $row["id"] . ")\">Delete " . "</button><br><br>";
     }
