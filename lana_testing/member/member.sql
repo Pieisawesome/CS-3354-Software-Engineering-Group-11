@@ -31,7 +31,7 @@ CREATE TABLE `member` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `classification` enum('undergraduate','graduate','faculty','other') NOT NULL
+  `classification` enum('undergrad','graduate','faculty','other') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
