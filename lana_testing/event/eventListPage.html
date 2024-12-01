@@ -94,12 +94,22 @@
             event.preventDefault(); // Prevent the default form submission
 
             const userSearch = document.getElementById('search').value.trim();
+            //theres a lot here...remove some if its conflicting anything
+            const regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/; 
+            const specialtest = regex.test(userSearch);
             
             //checks to see if its in an input length
             if (userSearch.length < 1 || userSearch.length > 50) {
                 showPopup("Search input must be between 1 to 50 characters.", null);
                 return;
             }
+            //tests to see if theres any special characters
+            if (specialtest)
+            {
+                showPopup("No special characters!", null);
+                return;
+            }
+
 
 
             const searchQuery = document.getElementById('search').value;
