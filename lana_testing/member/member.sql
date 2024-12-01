@@ -39,9 +39,9 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`id`, `name`, `email`, `classification`) VALUES
-(2, 'Lana Tran', 'lxt210009@utdallas.edu', ''),
-(3, 'Priya Narayanasami', 'priya.narayanasami@utdallas.edu', 'faculty'),
-(4, 'Agnus Thomas', 'agnus.thomas@utdallas.edu', '');
+(1, 'Lana Tran', 'lxt210009@utdallas.edu', ''),
+(2, 'Priya Narayanasami', 'priya.narayanasami@utdallas.edu', 'faculty'),
+(3, 'Agnus Thomas', 'agnus.thomas@utdallas.edu', '');
 
 --
 -- Indexes for dumped tables

@@ -13,9 +13,9 @@ if ($result->num_rows > 0) {
     // Html tags need to be in in double quotes
     while ($row = $result->fetch_assoc()) {
         echo htmlspecialchars($row["name"]) . " <bk>";
-        echo "<button onclick=\"editEvent(" . $row["id"] . ")\">Edit</button> ";
+        echo "<button onclick=\"editMember(" . $row["id"] . ")\">Edit</button> ";
         // Delete Button
-        echo "<button onclick=\"deleteEvent(" . $row["id"] . ")\">Delete " . "</button><br><br>";
+        echo "<button onclick=\"deleteMember(" . $row["id"] . ")\">Delete " . "</button><br><br>";
     }
 } else {
     echo "No members found.";

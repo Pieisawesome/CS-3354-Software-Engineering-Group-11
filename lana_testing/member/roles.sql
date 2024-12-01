@@ -37,9 +37,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `roles`) VALUES
-(2, 'Backend'),
-(3, 'Professor'),
-(4, 'Backend');
+(1, 'Backend'),
+(2, 'Professor'),
+(3, 'Backend');
 
 --
 -- Indexes for dumped tables
