@@ -3,8 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Event Forum</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Edit Event Form</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff6e6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff8300;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Section */
+        main {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff8300;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input, form button {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        form button {
+            background-color: #ff8300;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #e57000;
+        }
+
+        /* Popup */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        #popupMessage {
+            font-size: 1.1em;
+        }
+
+        #popup button {
+            margin-top: 15px;
+            background-color: #ff8300;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        #popup button:hover {
+            background-color: #e57000;
+        }
+
+        /* Overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #ff8300;
+            color: white;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 

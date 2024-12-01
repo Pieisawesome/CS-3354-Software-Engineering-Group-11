@@ -4,38 +4,44 @@ require 'db_config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $name = $_POST['name'];
-    $role = $_POST['role'];
+    $email = $_POST['email'];
+    $classification = $_POST['classification'];
+    $roles = $_POST['roles'];
 
     // Output the form data
     echo "Name: " . $name . "<br>";
-    echo "Date: " . $role . "<br>";
+    echo "Email: " . $email . "<br>";
+    echo "Classification: " . $classification . "<br>";
+    echo "Role: " . $roles . "<br>";
    
-    // Prepare and bind SQL statement
-    $stmt = $conn->prepare("INSERT INTO member (name) VALUES (?)");
-    $stmt->bind_param("s", $name); 
+    // Transaction (If one fails, all fail)
+    $conn->begin_transaction();
+    try{
+        // Prepare and bind SQL statement for member
+        $stmt = $conn->prepare("INSERT INTO member (name, email, classification) VALUES (?,?,?)");
+        $stmt->bind_param("sss", $name, $email, $classification); 
+        $stmt->execute();// Execute the statement 
+        $id = $stmt->insert_id; 
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "Record successfully saved.";
-        $mid = $stmt->insert_id; //we will store the id for later use so we dont have to do a select query 
-    } else {
-        echo "Error: " . $stmt->error;
+        // Prepare and bind SQL statement for roles
+        $stmt2 = $conn->prepare("INSERT INTO roles (id, roles) VALUES (?, ?)");
+        $stmt2->bind_param("is", $id, $roles);
+        $stmt2->execute();
+        $conn->commit();
+        echo "Successfully saved. <br>";
+        $stmt->close();
+        $stmt2->close();
+        $conn->close();
+    } catch (Exception $e){
+        $conn->rollback();
+        echo "Error: " . $e->getMessage();
+        try{
+            $stmt->close();
+            $stmt2->close();
+            $conn->close();
+        } catch (Exception $e){
+            echo "Error: " . $e->getMessage();
+        }
     }
-    // Close the statement 
-    $stmt->close();
-
-    //now we make a new statement but this time we use the prev id and put roles. 
-    //its supposed to put more than one in different rows 
-    //but for now this should be ok 
-    $stmt2 = $conn->prepare("INSERT INTO roles (mid, roles) VALUES (?, ?)");
-    $stmt2->bind_param("is", $mid, $role); 
-    if ($stmt2->execute()) {
-        echo "Record successfully saved.";
-    } else {
-        echo "Error: " . $stmt2->error;
-    }
-    $stmt2->close();
-    //close connection as we completed the transaction
-    $conn->close();
 }
 ?>

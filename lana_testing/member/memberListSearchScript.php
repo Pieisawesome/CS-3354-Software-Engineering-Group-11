@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
         echo htmlspecialchars($row["name"]) . "<br>";
     }
 } else {
-    echo "No events found for the search query.";
+    echo "No members found for the search query.";
 }
 
 $conn->close();

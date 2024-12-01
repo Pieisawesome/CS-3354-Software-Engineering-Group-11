@@ -3,8 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event List</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>Event Information</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff6e6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff8300;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Section */
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff8300;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ff8300;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e57000;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form input, form button {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            margin-left: 5px;
+        }
+
+        #eventList {
+            margin-top: 20px;
+        }
+
+        #eventList div {
+            background: #fff6e6;
+            border: 1px solid #ff8300;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #eventList div h3 {
+            color: #ff8300;
+            margin-bottom: 5px;
+        }
+
+        #eventList div p {
+            margin: 5px 0;
+        }
+
+        #eventList div button {
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #ff8300;
+            color: white;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- This file is for html page of event list -->
@@ -92,26 +219,6 @@
         // 2. Handle form submission for searching
         document.getElementById('searchForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
-
-            const userSearch = document.getElementById('search').value.trim();
-            //theres a lot here...remove some if its conflicting anything
-            const regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/; 
-            const specialtest = regex.test(userSearch);
-            
-            //checks to see if its in an input length
-            if (userSearch.length < 1 || userSearch.length > 50) {
-                showPopup("Search input must be between 1 to 50 characters.", null);
-                return;
-            }
-            //tests to see if theres any special characters
-            if (specialtest)
-            {
-                showPopup("No special characters!", null);
-                return;
-            }
-
-
-
             const searchQuery = document.getElementById('search').value;
             loadEvents(searchQuery); // Load events based on search query
         });

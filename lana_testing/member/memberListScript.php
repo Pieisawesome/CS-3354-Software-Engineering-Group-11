@@ -12,10 +12,13 @@ if ($result->num_rows > 0) {
     // Output all data
     // Html tags need to be in in double quotes
     while ($row = $result->fetch_assoc()) {
-        echo htmlspecialchars($row["name"]) . "<br>";
+        echo htmlspecialchars($row["name"]) . " <bk>";
+        echo "<button onclick=\"editEvent(" . $row["id"] . ")\">Edit</button> ";
+        // Delete Button
+        echo "<button onclick=\"deleteEvent(" . $row["id"] . ")\">Delete " . "</button><br><br>";
     }
 } else {
-    echo "No events found.";
+    echo "No members found.";
 }
 
 $conn->close();
