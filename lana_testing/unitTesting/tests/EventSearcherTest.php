@@ -1,11 +1,11 @@
 <?php
-namespace CS3354Project\Tests;
+namespace unitTesting\tests;
 
 use PHPUnit\Framework\TestCase;
 use mysqli;
 use mysqli_result;
 use mysqli_stmt;
-use CS3354Project\EventSearcher;
+use unitTesting\EventSearcher;
 
 class EventSearcherTest extends TestCase {
     private $mockConn;

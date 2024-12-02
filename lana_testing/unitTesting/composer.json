@@ -5,7 +5,7 @@
 
    "autoload": {
     "psr-4": {
-        "CS3354Project\\": "src/"
+        "unitTesting\\": "src/"
     }
 }
 }

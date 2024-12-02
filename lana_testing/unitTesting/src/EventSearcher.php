@@ -1,5 +1,5 @@
 <?php
-namespace CS3354Project;
+namespace unitTesting;
 use mysqli;
 
 class EventSearcher
