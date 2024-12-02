@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2024 at 05:50 PM
+-- Generation Time: Dec 02, 2024 at 09:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,11 +41,9 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `name`, `date`, `time`, `location`, `info`) VALUES
-(1, 'Yippee', '2024-11-27', '13:59:00', 'my heart', 'please work '),
-(2, 'Second YIPPPPE', '2024-11-28', '06:59:00', 'somewhere ig', ''),
-(3, 'testtesttest', '2024-11-30', '01:02:00', 'the beyond', 'i just wanna sleep'),
-(4, 'lets go gambling', '2024-11-06', '21:13:00', 'aw dangit', 'aw dangit aw dangit'),
-(5, 'cheezeborger', '2024-11-08', '10:17:00', 'yayyyyyyy', 'i love playing games');
+(1, 'Board Game Social Night!', '2024-12-04', '19:00:00', 'ECSS 2.415', 'Come hang out and play board games with us!'),
+(2, 'End of the Year Study Session', '2024-12-05', '11:00:00', 'Galaxy Rooms A & B', 'Finals week is closing in! Need a place to relax and work on assignments? Come join us in the Galaxy Rooms on Thursday!'),
+(3, 'Learn How to use Git Workshop', '2024-11-25', '16:15:00', 'SCI 3.206', 'Unsure or need to polish your Github skills? Join us with snacks and refreshments!');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +63,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
