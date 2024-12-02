@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2024 at 04:32 AM
+-- Generation Time: Dec 02, 2024 at 10:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,9 +37,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `roles`) VALUES
-(1, 'Backend'),
-(2, 'Professor'),
-(3, 'Backend');
+(7, 'Front End'),
+(8, 'Back End'),
+(9, 'Back End'),
+(10, 'Random'),
+(11, 'Professor');
 
 --
 -- Indexes for dumped tables
@@ -50,16 +52,6 @@ INSERT INTO `roles` (`id`, `roles`) VALUES
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `roles`
---
-ALTER TABLE `roles`
-  ADD CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`id`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
