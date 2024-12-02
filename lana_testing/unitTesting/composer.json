@@ -1,0 +1,11 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    },
+
+   "autoload": {
+    "psr-4": {
+        "CS3354Project\\": "src/"
+    }
+}
+}
