@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Information</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff6e6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff8300;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Section */
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff8300;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #ff8300;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e57000;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form input, form button {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            margin-left: 5px;
+        }
+
+        #eventList {
+            margin-top: 20px;
+        }
+
+        #eventList div {
+            background: #fff6e6;
+            border: 1px solid #ff8300;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #eventList div h3 {
+            color: #ff8300;
+            margin-bottom: 5px;
+        }
+
+        #eventList div p {
+            margin: 5px 0;
+        }
+
+        #eventList div button {
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #ff8300;
+            color: white;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="../sessionCheck.js" defer></script>
+</head>
+<body>
+    <!-- This file is for html page of event list -->
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">HubClub</div>
+        <nav>
+            <a href="eventListPage.html">Event List</a>
+            <a href="../member/memberListPage.html">Member List</a>
+            <a href="../index.html">Home</a>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <h1>Events List</h1>
+
+        <!-- Redirect to Create Event Page -->
+        <button onclick="window.location.href='createEventPage.html'">Create Event</button><br><br>
+        
+        <!-- Search Bar -->
+        <form id="searchForm">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Search for events...">
+            <button type="submit">Search</button><br><br>
+        </form>
+
+        <!-- Event List Container -->
+        <div id="eventList"></div>
+    </main>
+
+    <!-- Popup Message -->
+    <!-- If you want to change the popup, change it here? The style=tag atleast-->
+    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000;">
+        <span id="popupMessage"></span>
+        <br><br>
+        <button id="popupYesButton" style="display: none;">Yes</button>
+        <button id="popupCloseButton" onclick="closePopup()">Close</button>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closePopup()"></div>    
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 HubClub. All rights reserved.</p>
+    </footer>
+
+    <!-- End of HTML/CSS styling code -->
+
+    <!-- JavaScript -->
+        <!-- Five different 'functions' -->
+        <!-- 1. Load all events from the database -->
+        <!-- 2. Listener for search-->
+        <!-- 3. Events load with page load -->
+        <!-- 4. Delete a specific event -->
+        <!-- 5. Edit a specific event -->
+        <!-- 6. Popup Message -->
+    <script>
+
+        // 1. Load all results from the database
+        function loadEvents(searchQuery = '') {
+            // Create a FormData object to send data
+            const formData = new FormData();
+            formData.append('search', searchQuery);
+
+            // AJAX request
+            // If searchQuery is empty, load all events, if not run the search query script
+            fetch(searchQuery ? 'eventListSearchScript.php' : 'eventListScript.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Update event list with response
+                document.getElementById('eventList').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('eventList').innerHTML = 'An error occurred while loading events.';
+            });
+        }
+
+        // 2. Handle form submission for searching
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            const userSearch = document.getElementById('search').value.trim();
+            //theres a lot here...remove some if its conflicting anything
+            const regex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/; 
+            const specialtest = regex.test(userSearch);
+            
+            //checks to see if its in an input length
+            if (userSearch.length < 1 || userSearch.length > 50) {
+                showPopup("Search input must be between 1 to 50 characters.", null);
+                return;
+            }
+            //tests to see if theres any special characters
+            if (specialtest)
+            {
+                showPopup("No special characters!", null);
+                return;
+            }
+            
+            const searchQuery = document.getElementById('search').value;
+            loadEvents(searchQuery); // Load events based on search query
+        });
+
+        // 3. Load all events by default when the page loads
+        document.addEventListener('DOMContentLoaded', () => loadEvents());
+    
+
+        // 4. Delete an event
+        function deleteEvent(eventId) {
+            // Show confirmation popup
+            showPopup('Are you sure you want to delete this event?', () => {
+                // If confirmed, send the delete request
+                const formData = new FormData();
+                formData.append('eventId', eventId);
+
+                fetch('eventListDeleteScript.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Show success message in popup
+                        showPopup(data, null); // No callback for success message
+                        // Reload events list
+                        loadEvents();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showPopup('An error occurred while deleting the event.', null);
+                    });
+            });
+        }
+
+        // 5. Edit an event
+        function editEvent(eventId) {
+            // Redirect to the edit event page, needs to be here cause its tied with the id
+            window.location.href = `editEventPage.html?eventId=${eventId}`;
+        }
+
+        // 6. Popup Message
+        // Function to show the popup
+        function showPopup(message, yesCallback) {
+            document.getElementById('popupMessage').textContent = message;
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+
+            const yesButton = document.getElementById('popupYesButton');
+            yesButton.style.display = yesCallback ? 'inline-block' : 'none'; // For yes button
+
+            // Add click listener for "Yes" button
+            if (yesCallback) {
+                yesButton.onclick = () => {
+                    closePopup(); // Close popup before executing callback
+                    yesCallback();
+                };
+            }
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    
+    </script>
+</body>
+</html>

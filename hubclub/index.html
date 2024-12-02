@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff6e6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #ff8300;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        header .user-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        header .user-actions span {
+            font-weight: bold;
+        }
+
+        header .user-actions a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header .user-actions a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff8300;
+            margin-bottom: 20px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #ff8300;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #ff8300;
+            color: white;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="sessionCheck.js" defer></script>
+    <script src="displayUsername.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">HubClub</div>
+        <div class="user-actions">
+            <span id="username"></span>
+            <a href="logoutHandler.php">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <h1>Welcome to the Hub Club</h1>
+        <div class="welcome">
+            <h2>Home of all the university's clubs!</h2>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <h2>View Events</h2>
+                <p>Check out upcoming events and activities organized by your club.</p>
+                <a href="../hubclub/event/eventListPage.html">Go to Events</a>
+            </div>
+
+            <div class="card">
+                <h2>Manage Members</h2>
+                <p>Add, edit, or view members in your club's directory.</p>
+                <a href="../hubclub/member/memberListPage.html">Manage Members</a>
+            </div>
+
+            <div class="card">
+                <h2>Create New Event</h2>
+                <p>Plan and schedule new events for your club with ease.</p>
+                <a href="../hubclub/event/createEventPage.html">Create Event</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HubClub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
