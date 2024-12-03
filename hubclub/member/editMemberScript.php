@@ -33,6 +33,7 @@ if (isset($_GET['memberId'])) {
     }
 
     $stmt->close();
+    $stmt2->close();
 } else {
     echo json_encode(["success" => false, "message" => "No member ID provided."]);
 }

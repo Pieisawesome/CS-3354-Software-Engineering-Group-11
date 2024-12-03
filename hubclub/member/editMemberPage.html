@@ -148,7 +148,7 @@
             border-radius: 5px;
         }
     </style>
-    <script src="../sessionCheck.js" defer></script>
+    
 </head>
 <body>
 
@@ -238,7 +238,9 @@
             }
 
             // 2. Load details when the page loads
-            window.onload = loadMemberDetails;
+            if(window.onload = loadMemberDetails) {
+            src="../sessionCheck.js"
+            }
 
             // 3. Popup Confirmation
             // Form submission
